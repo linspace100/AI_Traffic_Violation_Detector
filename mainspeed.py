@@ -260,7 +260,7 @@ def main(yolo):
             bts[track.track_id].append(center)
             thickness = 2
             # center point
-            cv2.circle(frame, (center), 1, (0,255,0), thickness)
+            cv2.circle(frame, (center), 1, (0,255,0), 2)
 
 
             #intersect A line
@@ -268,7 +268,7 @@ def main(yolo):
                     if pts[track.track_id][0] is None or pts[track.track_id][1] is None:
                        continue
                     thickness = int(np.sqrt(64 / float(j + 1)) * 2)
-                    cv2.line(frame,(pts[track.track_id][j-1]), (pts[track.track_id][j]),(255,0,0),thickness)
+                    cv2.line(frame,(pts[track.track_id][j-1]), (pts[track.track_id][j]),(255,0,0),2)
                     if intersect(pts[track.track_id][j - 1], pts[track.track_id][j], line[0], line[1]):
                         violation_id[track.track_id] = True
                     #if intersect(bts[track.track_id][0], bts[track.track_id][1], A_line[0], A_line[1]):
@@ -342,15 +342,15 @@ def main(yolo):
         count = len(set(counter))
 
         vio_counter = violation_id.count(True)
-        cv2.line(frame, line[0], line[1], (0, 255, 255), 5)
+        cv2.line(frame, line[0], line[1], (0, 255, 255), 2)
         cv2.line(frame, A_line[0], A_line[1], (0, 255, 255), 2)
         cv2.line(frame, B_line[0], B_line[1], (0, 255, 255), 2)
         #cv2.line(frame, line[0], line[1], (0, 255, 255), 1)
         cv2.putText(frame, "Speed meter:" + str(round(highspeed[len(highspeed)-1],2))+"km/h id:"+str(track.track_id), (int(20), int(180)),0, 5e-3 * 50, (0, 0 ,255),2)
-        cv2.putText(frame, "Violated Counter: " + str(vio_counter), (int(20), int(150)),0, 5e-3 * 50, (0, 0 ,255),2)
-        cv2.putText(frame, "Total Object Counter: "+str(count),(int(20), int(120)),0, 5e-3 * 50, (0,255,0),2)
-        cv2.putText(frame, "Current Object Counter: "+str(i),(int(20), int(80)),0, 5e-3 * 50, (0,255,0),2)
-        cv2.putText(frame, "FPS: %f"%(fps),(int(20), int(40)),0, 5e-3 * 50, (0,255,0),2)
+        cv2.putText(frame, "Violated Counter: " + str(vio_counter), (int(20), int(150)),0, 5e-3 * 100, (0, 0 ,255),2)
+        cv2.putText(frame, "Total Object Counter: "+str(count),(int(20), int(120)),0, 5e-3 * 100, (0,255,0),2)
+        cv2.putText(frame, "Current Object Counter: "+str(i),(int(20), int(80)),0, 5e-3 * 100, (0,255,0),2)
+        cv2.putText(frame, "FPS: %f"%(fps),(int(20), int(40)),0, 5e-3 * 100, (0,255,0),2)
         #cv2.putText(frame, "Violated Counter: " + str(vio_counter), (int(20), int(150)),0, 5e-3 * 100, (0, 0 ,255),1)
         #cv2.putText(frame, "Total Object Counter: "+str(count),(int(20), int(120)),0, 5e-3 * 100, (0,255,0),1)
         #cv2.putText(frame, "Current Object Counter: "+str(i),(int(20), int(80)),0, 5e-3 * 100, (0,255,0),1)
