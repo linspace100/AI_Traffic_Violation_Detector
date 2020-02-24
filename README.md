@@ -1,7 +1,10 @@
 This program can detect left_turn rule offender and high speed car.
-If a car offends the rule then it creates new window surrounding the car.
+If a car offends the rule then it creates new window around the car.
 And the scene will be saved automatically on the root folder.
 (for speed checking, you should set two lines at a distance of 9 meters. And you should set original_video fps =10.)
+
+
+IMPORTANT: Getting a output_file from mainspeed.py, you should make output folder on the root folder.
 
 
 
@@ -21,7 +24,7 @@ __Development Environment: [Deep-Learning-Environment-Setup](https://github.com/
 
 It uses:
 
-* __Detection__: [YOLOv3](https://github.com/yehengchen/ObjectDetection/tree/master/OneStage/yolo/yolov3) to detect objects on each of the video frames. - 用自己的数据训练YOLOv3模型
+* __Detection__: [YOLOv3](https://github.com/yehengchen/ObjectDetection/tree/master/OneStage/yolo/yolov3) to detect objects on each of the video frames.
 
 * __Tracking__: [Deep_SORT](https://github.com/nwojke/deep_sort) to track those objects over different frames.
 
@@ -38,8 +41,6 @@ __1. Download the code to your computer.__
     git clone https://github.com/yehengchen/Object-Detection-and-Tracking.git
     
 __2. Download [[yolov3.weights]](https://pjreddie.com/media/files/yolov3.weights)__ and place it in `deep_sort_yolov3/model_data/`
-
-*Here you can download my trained [[yolo-spp.h5]](https://pan.baidu.com/s/1DoiifwXrss1QgSQBp2vv8w&shfl=shareset) - [t13k] weights for detection small objects - person/car/bicycle,etc.*
 
 __3. Convert the Darknet YOLO model to a Keras model:__
 ```
