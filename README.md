@@ -40,9 +40,9 @@ __0.Requirements__
     
 __1. Download the code to your computer.__
     
-    git clone https://github.com/yehengchen/Object-Detection-and-Tracking.git
+    git clone https://github.com/linspace100/AI_Traffic_Violence_Detector.git
     
-__2. Download [[yolov3.weights]](https://pjreddie.com/media/files/yolov3.weights)__ and place it in `deep_sort_yolov3/model_data/`
+__2. Download [[yolov3.weights]](https://pjreddie.com/media/files/yolov3.weights)__ and place it in `/model_data/`
 
 __3. Convert the Darknet YOLO model to a Keras model:__
 ```
@@ -51,9 +51,9 @@ $ python convert.py model_data/yolov3.cfg model_data/yolov3.weights model_data/y
 __4. Run the YOLO_DEEP_SORT:__
 
 ```
-$ python main.py -c [CLASS NAME] -i [INPUT VIDEO PATH]
+$ python mainspeed.py -c [CLASS NAME] -i [INPUT VIDEO PATH]
 
-$ python main.py -c car -i ./test_video/testvideo.mp4
+$ python mainspeed.py -c car -i ./test_video/testvideo.mp4
 ```
 For drawing a line, just click on the starting point and move a mouse with clicked until the line's end.
 
