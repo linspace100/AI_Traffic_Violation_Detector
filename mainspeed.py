@@ -113,10 +113,9 @@ def main(yolo):
     tracker = Tracker(metric)
 
     writeVideo_flag = True
-    #video_path = "../../yolo_dataset/t1_video/test_video/det_t1_video_00025_test.avi"
+
     video_capture = cv2.VideoCapture(args["input"])
-    #video_capture = VideoCaptureAsync()
-    #new code that i did
+
     video_capture.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
     video_capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
     original_fps = video_capture.get(cv2.CAP_PROP_FPS)
@@ -142,7 +141,7 @@ def main(yolo):
     first, mouse_frame = video_capture.read()
     cv2.namedWindow('DrawLine')
     cv2.resizeWindow('DrawLine', 1280, 720)
-    #mouse_frame1 = cv2.resize(mouse_frame, dsize=(1280, 720), interpolation=cv2.INTER_LINEAR_EXACT)
+
 
 
     while True:
@@ -158,7 +157,7 @@ def main(yolo):
     first, mouse_frame = video_capture.read()
     cv2.namedWindow('DrawALine')
     cv2.resizeWindow('DrawALine', 1280, 720)
-    # mouse_frame1 = cv2.resize(mouse_frame, dsize=(1280, 720), interpolation=cv2.INTER_LINEAR_EXACT)
+
 
     while True:
         cv2.setMouseCallback('DrawALine', draw_Aline)
@@ -172,7 +171,7 @@ def main(yolo):
     first, mouse_frame = video_capture.read()
     cv2.namedWindow('DrawBLine')
     cv2.resizeWindow('DrawBLine', 1280, 720)
-    # mouse_frame1 = cv2.resize(mouse_frame, dsize=(1280, 720), interpolation=cv2.INTER_LINEAR_EXACT)
+
 
     while True:
         cv2.setMouseCallback('DrawBLine', draw_Bline)
@@ -182,7 +181,7 @@ def main(yolo):
         if cv2.waitKey(0) == ord('b'):
             break
     cv2.destroyAllWindows()
-    #video_capture.start()
+
 
 
 
@@ -192,7 +191,7 @@ def main(yolo):
     while True:
 
 
-        ret, frame = video_capture.read()  # frame shape 640*480*3
+        ret, frame = video_capture.read()
         if ret != True:
             break
 
@@ -201,7 +200,7 @@ def main(yolo):
 
 
 
-       # image = Image.fromarray(frame)
+
         image = Image.fromarray(frame[...,::-1]) #bgr to rgb
         boxs,class_names = yolo.detect_image(image)
         features = encoder(frame,boxs)
@@ -224,7 +223,7 @@ def main(yolo):
 
         for det in detections:
             bbox = det.to_tlbr()
-            #cv2.rectangle(frame,(int(bbox[0]), int(bbox[1])), (int(bbox[2]), int(bbox[3])),(255,255,255), 2)
+
 
 
 
@@ -246,12 +245,12 @@ def main(yolo):
             indexIDs.append(int(track.track_id))
             counter.append(int(track.track_id))
             bbox = track.to_tlbr()
-            color = [int(c) for c in COLORS[indexIDs[i] % len(COLORS)]]
-            cv2.rectangle(frame, (int(bbox[0]), int(bbox[1])), (int(bbox[2]), int(bbox[3])), (color), 3)
-            cv2.putText(frame, str(track.track_id), (int(bbox[0]), int(bbox[1] - 50)), 0, 5e-3 * 150, (color), 2)
+
+            cv2.rectangle(frame, (int(bbox[0]), int(bbox[1])), (int(bbox[2]), int(bbox[3])), (0,255,0), 2)
+            cv2.putText(frame, str(track.track_id), (int(bbox[0]), int(bbox[1] - 50)), 0, 5e-3 * 150, (0,255,0), 2)
             if len(class_names) > 0:
                 class_name = class_names[0]
-                cv2.putText(frame, str(class_names[0]), (int(bbox[0]), int(bbox[1] - 20)), 0, 5e-3 * 150, (color), 2)
+                cv2.putText(frame, str(class_names[0]), (int(bbox[0]), int(bbox[1] - 20)), 0, 5e-3 * 150, (0,255,0), 2)
 
             i += 1
             # bbox_center_point(x,y)
@@ -259,9 +258,9 @@ def main(yolo):
             # track_id[center]
             pts[track.track_id].append(center)
             bts[track.track_id].append(center)
-            thickness = 5
+            thickness = 2
             # center point
-            cv2.circle(frame, (center), 1, color, thickness)
+            cv2.circle(frame, (center), 1, (0,255,0), thickness)
 
 
             #intersect A line
@@ -269,7 +268,7 @@ def main(yolo):
                     if pts[track.track_id][0] is None or pts[track.track_id][1] is None:
                        continue
                     thickness = int(np.sqrt(64 / float(j + 1)) * 2)
-                    cv2.line(frame,(pts[track.track_id][j-1]), (pts[track.track_id][j]),(color),thickness)
+                    cv2.line(frame,(pts[track.track_id][j-1]), (pts[track.track_id][j]),(255,0,0),thickness)
                     if intersect(pts[track.track_id][j - 1], pts[track.track_id][j], line[0], line[1]):
                         violation_id[track.track_id] = True
                     #if intersect(bts[track.track_id][0], bts[track.track_id][1], A_line[0], A_line[1]):
@@ -310,7 +309,7 @@ def main(yolo):
                 cv2.putText(frame, str(track.track_id)+"offender", (int(bbox[0]), int(bbox[1] - 50)), 0, 5e-3 * 300, (0, 0, 255), 3)
                 if len(class_names) > 0:
                     class_name = class_names[0]
-                    cv2.putText(frame, str(class_names[0]), (int(bbox[0]), int(bbox[1] - 20)), 0, 5e-3 * 150, (color), 2)
+                    cv2.putText(frame, str(class_names[0]), (int(bbox[0]), int(bbox[1] - 20)), 0, 5e-3 * 150, (0,255,255), 2)
 
                 i += 1
                 # bbox_center_point(x,y)
