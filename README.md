@@ -21,7 +21,7 @@ __Development Environment: [Deep-Learning-Environment-Setup](https://github.com/
 * NumPy
 * sklean
 * Pillow
-* tensorflow-gpu 1.15.0 
+* tensorflow-gpu 1.15.2 
 ***
 
 It uses:
